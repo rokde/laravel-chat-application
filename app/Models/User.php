@@ -12,7 +12,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property string $name
@@ -31,8 +31,6 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read int|null $friend_of_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $friends
  * @property-read int|null $friends_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $friendsOfMine
- * @property-read int|null $friends_of_mine_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $openFriendRequests
