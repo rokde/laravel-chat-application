@@ -14,6 +14,10 @@ We have Actions to handle friendship between users.
 
 You can only chat with friends.
 
+### Chat
+
+We can have chats. On your own, or with friends. So create a chat.
+
 ## Local development
 
 start local server in one console
