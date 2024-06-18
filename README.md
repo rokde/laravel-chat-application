@@ -18,6 +18,9 @@ You can only chat with friends.
 
 We can have chats. On your own, or with friends. So create a chat.
 
+In a chat we can send messages. From one participant to the others. Empty messages can have attachments in the future.
+So you can just send an attachment. We want to add reactions and replies as well.
+
 ## Local development
 
 start local server in one console
