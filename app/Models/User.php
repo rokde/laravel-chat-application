@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -12,7 +13,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -27,6 +28,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
  * @property string|null $two_factor_confirmed_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Chat> $chats
+ * @property-read int|null $chats_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $friendOf
  * @property-read int|null $friend_of_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $friends
@@ -146,5 +149,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, 'friends', 'friend_id', 'user_id')
             ->wherePivot('accepted', false);
+    }
+
+    public function chats(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            related: Chat::class,
+            through: ChatParticipant::class,
+            secondKey: 'id',//chats.id
+            secondLocalKey: 'chat_id',//chat_participants.chat_id
+        );
     }
 }

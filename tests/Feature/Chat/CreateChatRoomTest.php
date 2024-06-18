@@ -22,6 +22,9 @@ class CreateChatRoomTest extends TestCase
 
         $this->assertCount(1, $chat->participants);
         $this->assertEquals($user->id, $chat->participants->first()->id);
+
+        $this->assertCount(1, $user->chats);
+        $this->assertEquals($chat->id, $user->chats->first()->id);
     }
 
     #[\PHPUnit\Framework\Attributes\Test]

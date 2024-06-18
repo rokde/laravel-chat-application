@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- *
+ * 
  *
  * @property int $id
- * @property int|null $reply_to
  * @property int $chat_id
  * @property int $user_id
  * @property string|null $message
@@ -24,7 +23,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|ChatMessage whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChatMessage whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChatMessage whereMessage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|ChatMessage whereReplyTo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChatMessage whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChatMessage whereUserId($value)
  * @mixin \Eloquent
