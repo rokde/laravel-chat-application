@@ -17,9 +17,15 @@ const props = defineProps({
     },
 });
 
-const open = (chatId) => {
+const openChat = (chatId) => {
     router.visit(route('chats.show', chatId));
-}
+};
+
+const createChatWithFriend = (friend) => {
+    router.post(route('chats.store'), {
+        participants: [friend],
+    });
+};
 </script>
 
 <template>
@@ -29,12 +35,13 @@ const open = (chatId) => {
                   :key="chat.id">
             <ListEntryCard :label="chat.name"
                            :selected="chat.id === props.chat?.id"
-                           @click="open(chat.id)"/>
+                           @click="openChat(chat.id)"/>
         </template>
         <h3 class="font-bold text-xl mt-8">Friends</h3>
-        <div v-for="friend of friends"
-             :key="friend.id">
-            {{ friend.name }}
-        </div>
+        <template v-for="friend of friends"
+                  :key="friend.id">
+            <ListEntryCard :label="friend.name"
+                           @click="createChatWithFriend(friend)"/>
+        </template>
     </div>
 </template>

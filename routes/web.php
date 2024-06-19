@@ -1,6 +1,7 @@
 <?php
 
 use App\Actions\Chat\CreateChatMessage;
+use App\Actions\Chat\CreateChatRoom;
 use App\Http\Resources\ChatCollection;
 use App\Http\Resources\ChatResource;
 use App\Http\Resources\NameBasedResource;
@@ -34,6 +35,16 @@ Route::middleware([
             'friends' => NameBasedResource::collection($request->user()->friends),
         ]);
     })->name('chats.index');
+
+    Route::post('/chats', function (Request $request, CreateChatRoom $createChatRoom) {
+        $chat = $createChatRoom->execute(
+            $request->user(),
+            collect($request->get('participants')),
+            $request->get('name'),
+        );
+
+        return redirect()->route('chats.show', [$chat]);
+    })->name('chats.store');
 
     Route::get('/chats/{chat}', function (Request $request, Chat $chat) {
         $chat->loadMissing('participants', 'messages');
