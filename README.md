@@ -39,3 +39,9 @@ Building assets, open a new console and run
 ```bash
 npm run dev
 ```
+
+## Dependencies
+
+### Frontend
+
+- [Day.js](https://day.js.org/docs/en/installation/installation) for displaying dates in the ui
