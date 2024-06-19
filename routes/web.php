@@ -49,5 +49,5 @@ Route::middleware([
         $createChatMessage->execute($chat, $request->user(), $request->get('message'));
 
         return redirect()->route('chats.show', ['chat' => $chat]);
-    })->name('chats.messages.create');
+    })->name('chats.messages.store');
 });

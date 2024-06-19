@@ -23,7 +23,7 @@ const form = useForm({
 });
 
 const send = () => {
-    form.post(route('chats.messages.create', [props.chat.id]), {
+    form.post(route('chats.messages.store', [props.chat.id]), {
         preserveScroll: true,
         onSuccess: () => form.reset(),
         onError: () => {
