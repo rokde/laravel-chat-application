@@ -9,6 +9,10 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+    chat: {
+        type: [Object, null],
+        default: null,
+    },
     friends: {
         type: Array,
         default: () => [],
@@ -21,11 +25,13 @@ const props = defineProps({
         <FixedSidebarContainer>
             <template #sidebar>
                 <FriendListWindow :chats="props.chats"
+                                  :chat="props.chat"
                                   :friends="props.friends"/>
             </template>
 
             <div>
-                <ChatWindow/>
+                <ChatWindow v-if="chat"
+                            :chat="chat"/>
             </div>
         </FixedSidebarContainer>
     </AppLayout>
