@@ -1,5 +1,9 @@
 <?php
 
+use App\Actions\Chat\CreateChatMessage;
+use App\Http\Resources\ChatCollection;
+use App\Http\Resources\ChatResource;
+use App\Http\Resources\NameBasedResource;
 use App\Models\Chat;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
@@ -25,27 +29,25 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/chats', function (Request $request) {
-        $chats = $request->user()->chats
-            ->map(function ($chat) {
-                return [
-                    'id' => $chat->id,
-                    'name' => $chat->name,
-                ];
-            })
-            ->all();
-
-        $friends = $request->user()->friends
-            ->map(function ($friend) {
-                return [
-                    'id' => $friend->id,
-                    'name' => $friend->name,
-                ];
-            });
-
         return Inertia::render('Chats', [
-            'chats' => $chats,
-            'friends' => $friends,
+            'chats' => NameBasedResource::collection($request->user()->chats),
+            'friends' => NameBasedResource::collection($request->user()->friends),
         ]);
     })->name('chats.index');
 
+    Route::get('/chats/{chat}', function (Request $request, Chat $chat) {
+        $chat->loadMissing('participants', 'messages');
+
+        return Inertia::render('Chats', [
+            'chat' => new ChatResource($chat),
+            'chats' => NameBasedResource::collection($request->user()->chats),
+            'friends' => NameBasedResource::collection($request->user()->friends),
+        ]);
+    })->name('chats.show');
+
+    Route::post('/chats/{chat}', function (Request $request, Chat $chat, CreateChatMessage $createChatMessage) {
+        $createChatMessage->execute($chat, $request->user(), $request->get('message'));
+
+        return redirect()->route('chats.show', ['chat' => $chat]);
+    })->name('chats.messages.create');
 });
