@@ -24,6 +24,7 @@ const openChat = (chatId) => {
 const createChatWithFriend = (friend) => {
     router.post(route('chats.store'), {
         participants: [friend],
+        name: friend.name,
     });
 };
 </script>
