@@ -1,6 +1,7 @@
 <script setup>
 import ChatWindow from '@/Blocks/ChatWindow.vue';
 import FriendListWindow from '@/Blocks/FriendListWindow.vue';
+import InviteFriendsToChatWindow from '@/Blocks/InviteFriendsToChatWindow.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import FixedSidebarContainer from '@/Layouts/Container/FixedSidebarContainer.vue';
 
@@ -32,6 +33,8 @@ const props = defineProps({
             <div>
                 <ChatWindow v-if="chat"
                             :chat="chat"/>
+                <InviteFriendsToChatWindow v-else
+                                           :friends="props.friends"/>
             </div>
         </FixedSidebarContainer>
     </AppLayout>
