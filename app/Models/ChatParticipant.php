@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Chat $chat
+ * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant query()
@@ -36,5 +37,10 @@ class ChatParticipant extends Model
     public function chat(): BelongsTo
     {
         return $this->belongsTo(Chat::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

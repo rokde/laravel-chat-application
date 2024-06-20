@@ -6,6 +6,8 @@ use App\Http\Resources\ChatCollection;
 use App\Http\Resources\ChatResource;
 use App\Http\Resources\NameBasedResource;
 use App\Models\Chat;
+use App\Models\ChatParticipant;
+use App\Notifications\MessageSentNotification;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -57,8 +59,14 @@ Route::middleware([
     })->name('chats.show');
 
     Route::post('/chats/{chat}', function (Request $request, Chat $chat, CreateChatMessage $createChatMessage) {
-        $createChatMessage->execute($chat, $request->user(), $request->get('message'));
+        $message = $createChatMessage->execute($chat, $request->user(), $request->get('message'));
 
-        return redirect()->route('chats.show', ['chat' => $chat]);
+        \App\Events\MessageSent::dispatch($message);
+        $message->recipients()
+            ->each(
+                fn(ChatParticipant $participant) => $participant->user->notify(new MessageSentNotification($message))
+            );
+
+        return back();
     })->name('chats.messages.store');
 });

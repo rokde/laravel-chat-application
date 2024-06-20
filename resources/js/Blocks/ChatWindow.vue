@@ -3,8 +3,10 @@ import ChatterLine from '@/Components/ChatterLine.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import {useForm} from '@inertiajs/vue3';
-import {onMounted, ref} from 'vue';
+import {useForm, usePage} from '@inertiajs/vue3';
+import {onMounted, onUnmounted, ref} from 'vue';
+
+const page = usePage();
 
 const props = defineProps({
     chat: {
@@ -25,6 +27,7 @@ const form = useForm({
 const send = () => {
     form.post(route('chats.messages.store', [props.chat.id]), {
         preserveScroll: true,
+        preserveState: false,
         onSuccess: () => form.reset(),
         onError: () => {
             messageInput.value.focus();
@@ -34,6 +37,14 @@ const send = () => {
 
 onMounted(() => {
     messageInput.value.focus();
+    Echo.private(`App.Models.User.${page.props.auth.user.id}`)
+        .listen('MessageSent', (event) => {
+            console.log('message sent came in', event);
+        });
+});
+
+onUnmounted(() => {
+    Echo.leave(`App.Models.User.${page.props.auth.user.id}`);
 })
 </script>
 

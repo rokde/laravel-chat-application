@@ -4,9 +4,10 @@ import Banner from '@/Components/Banner.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
+import Notification from '@/Components/Notification.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
-import {Head, Link, router} from '@inertiajs/vue3';
-import {ref} from 'vue';
+import {Head, Link, router, usePage} from '@inertiajs/vue3';
+import {onMounted, ref} from 'vue';
 
 defineProps({
     title: String,
@@ -25,6 +26,21 @@ const switchToTeam = (team) => {
 const logout = () => {
     router.post(route('logout'));
 };
+
+const notifications = ref([]);
+
+const page = usePage();
+
+onMounted(() => {
+    Echo.private(`App.Models.User.${page.props.auth.user.id}`)
+        .notification((notification) => {
+            console.log(`notification was sent to ${page.props.auth.user.id}`);
+            notifications.value.push({
+                show: true,
+                content: notification.content,
+            })
+        });
+});
 </script>
 
 <template>
@@ -318,6 +334,15 @@ const logout = () => {
             <main>
                 <slot/>
             </main>
+        </div>
+
+        <div aria-live="assertive"
+             class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6">
+            <ul class="flex w-full flex-col items-center space-y-4 sm:items-end">
+                <Notification v-for="notification in notifications" v-model:show="notification.show">
+                    {{ notification.content }}
+                </Notification>
+            </ul>
         </div>
     </div>
 </template>
