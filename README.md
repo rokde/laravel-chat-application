@@ -40,6 +40,10 @@ After having this running open two different browsers (or incognito window) and 
 If you open two or more independent browser windows, you can meet in a chat and start typing. The other participants
 will see the typing notification.
 
+#### Online status
+
+We display online or offline status via presence channel.
+
 ## Local development
 
 start local server in one console
