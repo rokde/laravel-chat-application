@@ -1,5 +1,7 @@
 <script setup>
+import Avatar from '@/Components/Avatar.vue';
 import ListEntryCard from '@/Components/ListEntryCard.vue';
+import {usersOnline} from '@/Stores/users-online.js';
 import {Link, router} from '@inertiajs/vue3';
 
 const props = defineProps({
@@ -15,6 +17,13 @@ const props = defineProps({
         type: Array,
         default: () => [],
     },
+});
+
+const chats = props.chats.map((chat) => {
+    return {
+        ...chat,
+        ping: false,
+    };
 });
 
 const openChat = (chatId) => {
@@ -45,13 +54,18 @@ const createChatWithFriend = (friend) => {
                   :key="chat.id">
             <ListEntryCard :label="chat.name"
                            :selected="chat.id === props.chat?.id"
+                           :ping="chat.ping"
                            @click="openChat(chat.id)"/>
         </template>
         <h3 class="font-bold text-xl mt-8">Friends</h3>
-        <template v-for="friend of friends"
+        <template v-for="friend of props.friends"
                   :key="friend.id">
             <ListEntryCard :label="friend.name"
-                           @click="createChatWithFriend(friend)"/>
+                           @click="createChatWithFriend(friend)">
+                <template #icon>
+                    <Avatar :name="friend.name" :status="usersOnline.isOnline(friend.id) ? 'online' : 'offline'"/>
+                </template>
+            </ListEntryCard>
         </template>
     </div>
 </template>
