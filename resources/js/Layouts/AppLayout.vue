@@ -1,13 +1,15 @@
 <script setup>
 import ApplicationMark from '@/Components/ApplicationMark.vue';
+import Avatar from '@/Components/Avatar.vue';
 import Banner from '@/Components/Banner.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import Notification from '@/Components/Notification.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
+import {usersOnline} from '@/Stores/users-online.js';
 import {Head, Link, router, usePage} from '@inertiajs/vue3';
-import {onMounted, ref} from 'vue';
+import {onMounted, ref, watchEffect} from 'vue';
 
 defineProps({
     title: String,
@@ -41,6 +43,27 @@ onMounted(() => {
             })
         });
 });
+
+watchEffect((onCleanup) => {
+    Echo.join('online')
+        .here((users) => {
+            users.forEach((user) => usersOnline.addUser(user));
+            console.log('here', users);
+        })
+        .joining((user) => {
+            usersOnline.addUser(user);
+            console.log('joining', user);
+        })
+        .leaving((user) => {
+            usersOnline.deleteUser(user);
+            console.log('leaving', user);
+        })
+        .error((error) => {
+            console.error('online channel error', error);
+        });
+
+    onCleanup(() => Echo.leave('online'));
+}, []);
 </script>
 
 <template>
