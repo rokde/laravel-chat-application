@@ -21,14 +21,14 @@ const props = defineProps({
 });
 
 const initials = computed(() => {
-    return props.name.split(' ').map(c => c[0]).join('');
+    return (props.name ?? '').split(' ').map(c => c[0]).join('');
 });
 
 const colors = {
-    online: 'bg-emerald-500',
-    offline: 'bg-gray-300',
-    away: 'bg-amber-500',
-    busy: 'bg-red-600',
+    online: 'bg-emerald-600 border-emerald-200',
+    offline: 'bg-gray-300 border-gray-50',
+    away: 'bg-amber-500 border-amber-200',
+    busy: 'bg-red-600 border-red-200',
 };
 
 const classesBasedOnSize = computed(() => {
@@ -68,9 +68,10 @@ const classesBasedOnSize = computed(() => {
 
 <template>
     <div class="relative bg-gray-100 flex justify-center items-center rounded-full"
-         :class="classesBasedOnSize.container">
+         :class="classesBasedOnSize.container"
+         :title="props.name">
         <img v-if="props.imageUrl"
-             :class="classesBasedOnSize.container"
+             :class="classesBasedOnSize.image"
              :src="imageUrl"
              alt="">
         <span v-else
@@ -79,16 +80,16 @@ const classesBasedOnSize = computed(() => {
             {{ initials }}
         </span>
         <span v-if="props.status === 'online'"
-              class="absolute bottom-0 border-white rounded-full"
+              class="absolute bottom-0 rounded-full"
               :class="classesBasedOnSize.statusOnline"></span>
         <span v-if="props.status === 'offline'"
-              class="absolute bottom-0 border-white rounded-full"
+              class="absolute bottom-0 rounded-full"
               :class="classesBasedOnSize.statusOffline"></span>
         <span v-if="props.status === 'away'"
-              class="absolute bottom-0 border-white rounded-full"
+              class="absolute bottom-0 rounded-full"
               :class="classesBasedOnSize.statusAway"></span>
         <span v-if="props.status === 'busy'"
-              class="absolute bottom-0 border-white rounded-full"
+              class="absolute bottom-0 rounded-full"
               :class="classesBasedOnSize.statusBusy"></span>
     </div>
 </template>
