@@ -20,6 +20,7 @@ class ChatMessageResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'user_id' => $this->resource->user_id,
+            'user' => new UserResource($this->whenLoaded('user')),
             'message' => $this->resource->message,
             'timestamp' => $this->resource->created_at,
         ];
