@@ -35,6 +35,8 @@ class ChatMessage extends Model
 
     protected $guarded = [];
 
+    protected $touches = ['chat'];
+
     public function chat(): BelongsTo
     {
         return $this->belongsTo(Chat::class);
