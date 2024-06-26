@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property string $name
@@ -41,5 +42,11 @@ class Chat extends Model
     {
         return $this->hasMany(ChatMessage::class)
             ->orderBy('id');
+    }
+
+    public function latestMessage(): HasOne
+    {
+        return $this->hasOne(ChatMessage::class)
+            ->orderByDesc('id');
     }
 }
