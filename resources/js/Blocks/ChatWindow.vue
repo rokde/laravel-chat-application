@@ -3,6 +3,7 @@ import ChatterLine from '@/Components/ChatterLine.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import {PaperAirplaneIcon} from '@heroicons/vue/24/solid/index.js';
 import {useForm, usePage} from '@inertiajs/vue3';
 import {onMounted, onUnmounted, ref} from 'vue';
 
@@ -42,6 +43,9 @@ onMounted(() => {
     Echo.private(`App.Models.User.${page.props.auth.user.id}`)
         .listen('MessageSent', (event) => {
             console.log('message sent came in', event);
+        })
+        .error((error) => {
+            console.error('error message sent', error);
         });
 
     Echo.private(`chat.${props.chat.id}`)
@@ -57,6 +61,9 @@ onMounted(() => {
             friendsTypingTimer[event.id] = setTimeout(() => {
                 friendsTyping.value = friendsTyping.value.filter((friend) => friend.id !== event.id);
             }, 10000);
+        })
+        .error((error) => {
+            console.error('error on typing', error);
         });
 });
 
@@ -75,7 +82,7 @@ const sendTypingEvent = () => {
 </script>
 
 <template>
-    <div class="bg-gray-200 dark:bg-gray-400 p-4">
+    <div class="p-4">
         <div class="flex flex-col gap-2">
             <template v-for="message of props.chat.messages"
                       :key="message.id">
@@ -106,7 +113,7 @@ const sendTypingEvent = () => {
                 </div>
                 <div>
                     <PrimaryButton :disabled="form.processing">
-                        Submit
+                        <PaperAirplaneIcon class="w-5 h-5 text-indigo-500"/>
                     </PrimaryButton>
                 </div>
             </form>

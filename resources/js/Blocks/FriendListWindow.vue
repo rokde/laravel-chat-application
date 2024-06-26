@@ -56,6 +56,7 @@ const createChatWithFriend = (friend) => {
                            :selected="chat.id === props.chat?.id"
                            :ping="chat.ping"
                            @click="openChat(chat.id)"/>
+            <!--            <ChatOverviewCard :chat="chat" :avatar="chat.title"/>-->
         </template>
         <h3 class="font-bold text-xl mt-8">Friends</h3>
         <template v-for="friend of props.friends"

@@ -2,7 +2,6 @@
 
 use App\Actions\Chat\CreateChatMessage;
 use App\Actions\Chat\CreateChatRoom;
-use App\Http\Resources\ChatCollection;
 use App\Http\Resources\ChatResource;
 use App\Http\Resources\NameBasedResource;
 use App\Models\Chat;
@@ -32,9 +31,11 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/chats', function (Request $request) {
+        $user = $request->user();
+        $user->loadMissing('chats.latestMessage.user', 'chats.participants');
+
         return Inertia::render('Chats', [
-            'chats' => NameBasedResource::collection($request->user()->chats),
-            'friends' => NameBasedResource::collection($request->user()->friends),
+            'chats' => ChatResource::collection($user->chats),
         ]);
     })->name('chats.index');
 
@@ -49,12 +50,13 @@ Route::middleware([
     })->name('chats.store');
 
     Route::get('/chats/{chat}', function (Request $request, Chat $chat) {
+        $user = $request->user();
+        $user->loadMissing('chats.latestMessage.user', 'chats.participants');
         $chat->loadMissing('participants', 'messages');
 
         return Inertia::render('Chats', [
             'chat' => new ChatResource($chat),
-            'chats' => NameBasedResource::collection($request->user()->chats),
-            'friends' => NameBasedResource::collection($request->user()->friends),
+            'chats' => ChatResource::collection($user->chats),
         ]);
     })->name('chats.show');
 
@@ -69,4 +71,19 @@ Route::middleware([
 
         return back();
     })->name('chats.messages.store');
+
+    Route::get('/contacts', function (Request $request) {
+
+        return Inertia::render('Contacts', [
+            'friends' => NameBasedResource::collection($request->user()->friends),
+        ]);
+    })->name('contacts.index');
+
+    Route::get('/contacts/{contact}', function (Request $request, \App\Models\User $contact) {
+
+        return Inertia::render('Contacts', [
+            'friends' => NameBasedResource::collection($request->user()->friends),
+            'contact' => new \App\Http\Resources\UserResource($contact),
+        ]);
+    })->name('contacts.show');
 });
