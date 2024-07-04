@@ -7,7 +7,9 @@ import {usePage} from '@inertiajs/vue3';
 import {computed} from 'vue';
 import type {ConversationProps} from '@/types';
 
-const props = defineProps<ConversationProps>()
+const props = withDefaults(defineProps<ConversationProps>(), {
+    selected: false,
+})
 
 const isDirectConversation = computed(() => {
     return props.chat.participant_count === 2;
