@@ -1,3 +1,4 @@
+import type {Config} from 'tailwindcss'
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 import defaultTheme from 'tailwindcss/defaultTheme';
@@ -23,4 +24,4 @@ export default {
     },
 
     plugins: [forms, typography],
-};
+} satisfies Config;
