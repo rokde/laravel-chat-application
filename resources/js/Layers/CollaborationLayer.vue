@@ -8,6 +8,9 @@ const notifications = ref([]);
 const page = usePage();
 
 onMounted(() => {
+    if (!page.props.auth.user)
+        return;
+
     Echo.private(`App.Models.User.${page.props.auth.user.id}`)
         .notification((notification) => {
             console.log(`notification was sent to ${page.props.auth.user.id}`);
@@ -22,6 +25,9 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+    if (!page.props.auth.user)
+        return;
+
     Echo.leave(`App.Models.User.${page.props.auth.user.id}`);
 })
 
