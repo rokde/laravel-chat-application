@@ -1,21 +1,13 @@
-<script setup>
+<script lang="ts" setup>
 import Avatar from '@/Components/Avatar.vue';
 import Typography from '@/Components/UI/data-display/Typography.vue';
 import {humanReadableTimeDiff} from '@/helpers.js';
 import {usersOnline} from '@/Stores/users-online.js';
 import {usePage} from '@inertiajs/vue3';
 import {computed} from 'vue';
+import type {ConversationProps} from '@/types';
 
-const props = defineProps({
-    chat: {
-        type: Object,
-        default: null,
-    },
-    selected: {
-        type: Boolean,
-        default: false,
-    },
-})
+const props = defineProps<ConversationProps>()
 
 const isDirectConversation = computed(() => {
     return props.chat.participant_count === 2;
