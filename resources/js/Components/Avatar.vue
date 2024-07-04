@@ -33,13 +33,13 @@ const initials = computed(() => {
 
 <template>
     <div v-if="props.status" class="relative inline-block">
-        <Avatar>
+        <Avatar :title="props.name">
             <AvatarImage v-if="props.imageUrl" :src="props.imageUrl" :alt="props.name"/>
             <AvatarFallback>{{ initials }}</AvatarFallback>
         </Avatar>
         <span :class="cn(statusVariant({status}))"></span>
     </div>
-    <Avatar v-else>
+    <Avatar v-else :title="props.name">
         <AvatarImage v-if="props.imageUrl" :src="props.imageUrl" :alt="props.name"/>
         <AvatarFallback>{{ initials }}</AvatarFallback>
     </Avatar>
