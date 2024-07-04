@@ -59,8 +59,7 @@ const props = defineProps({
         <div>
             <div v-if="contact">
                 <Avatar :name="contact.name"
-                        :status="usersOnline.isOnline(contact.id) ? 'online' : 'offline'"
-                        :size="10"/>
+                        :status="usersOnline.isOnline(contact.id) ? 'online' : 'offline'"/>
                 {{ contact.name }}<br>
                 {{ contact.email }}
             </div>

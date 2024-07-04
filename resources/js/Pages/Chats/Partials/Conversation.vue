@@ -35,12 +35,12 @@ defineEmits(['selected']);
                     'bg-white dark:bg-gray-900': props.selected,
                 }">
             <template v-if="isDirectConversation">
-                <Avatar :name="conversationPartner.name" :size="10" class="shrink-0"
+                <Avatar :name="conversationPartner.name" class="shrink-0"
                         :status="usersOnline.isOnline(conversationPartner.user_id) ? 'online' : 'offline'"/>
                 {{ conversationPartner.user_id }}
             </template>
             <template v-else>
-                <Avatar :name="multipleConversationPartner" :size="10" class="shrink-0"/>
+                <Avatar :name="multipleConversationPartner" class="shrink-0"/>
             </template>
             <div class="grow flex flex-col max-w-full text-left">
                 <div class="flex items-start justify-between">

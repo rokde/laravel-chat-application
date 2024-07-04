@@ -39,8 +39,7 @@ const props = defineProps({
           class="flex items-center justify-center"
           :class="{'font-bold': props.unread}">
         <Avatar :name="props.avatar"
-                :imageUrl="props.imageUrl"
-                size.number="10"/>
+                :imageUrl="props.imageUrl"/>
 
         <div class="flex-1">
             <div class="flex items-center justify-between">

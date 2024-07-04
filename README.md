@@ -63,8 +63,15 @@ Building assets, open a new console and run
 npm run dev
 ```
 
+Adding new ui components from shadcn-vue:
+
+```bash
+npx shadcn-vue@latest add
+```
+
 ## Dependencies
 
 ### Frontend
 
 - [Day.js](https://day.js.org/docs/en/installation/installation) for displaying dates in the ui
+- [shadcn-vue](https://www.shadcn-vue.com/docs/introduction.html) for ui components

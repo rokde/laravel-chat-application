@@ -45,7 +45,7 @@ const page = usePage();
             <hr class="hidden md:block mb-6 mt-4 border-gray-100 dark:border-gray-600"/>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <Avatar :name="$page.props.auth.user.name" :size="8"/>
+                <Avatar :name="$page.props.auth.user.name"/>
             </div>
         </div>
     </div>
