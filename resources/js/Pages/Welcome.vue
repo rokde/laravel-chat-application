@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup lang="ts">
 import type {PropType} from 'vue'
 import {Head, Link} from '@inertiajs/vue3';
 import {route} from 'ziggy-js';
