@@ -3,7 +3,9 @@ import {Input} from '@/shadcn/ui/input';
 import {MagnifyingGlassIcon} from "@heroicons/vue/24/outline";
 import {useKeyupEvent} from "@/lib/composables";
 
-defineEmits(['search']);
+defineEmits<{
+    (e: 'search', text: string): void
+}>();
 
 useKeyupEvent(event => {
     console.log('keyup', event);

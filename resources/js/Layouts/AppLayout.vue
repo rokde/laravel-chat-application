@@ -29,7 +29,9 @@ const logout = () => {
     router.post(route('logout'));
 };
 
-defineEmits(['search']);
+defineEmits<{
+    (e: 'search', text: string): void
+}>();
 </script>
 
 <template>
