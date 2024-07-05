@@ -3,7 +3,7 @@ import Avatar from '@/Components/Avatar.vue';
 import ThemeSwitcher from '@/Components/ThemeSwitcher.vue';
 import Logo from '@/Navigation/Logo.vue';
 import NavLink from '@/Navigation/NavLink.vue';
-import {ChatBubbleOvalLeftIcon, UserIcon} from '@heroicons/vue/24/solid/index.js';
+import {ChatBubbleOvalLeftIcon, UserIcon} from '@heroicons/vue/24/solid';
 import {usePage} from '@inertiajs/vue3';
 
 const page = usePage();

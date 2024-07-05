@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator} from "@/shadcn/ui/breadcrumb";
-import {HomeIcon} from "@heroicons/vue/24/outline/index";
+import {HomeIcon} from '@heroicons/vue/24/outline';
 import {route} from 'ziggy-js';
 
 const props = withDefaults(defineProps<{

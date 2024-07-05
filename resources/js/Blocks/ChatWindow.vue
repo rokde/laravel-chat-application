@@ -3,7 +3,7 @@ import ChatterLine from '@/Components/ChatterLine.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import {PaperAirplaneIcon} from '@heroicons/vue/24/solid/index.js';
+import {PaperAirplaneIcon} from '@heroicons/vue/24/solid';
 import {useForm, usePage} from '@inertiajs/vue3';
 import {onMounted, onUnmounted, ref} from 'vue';
 

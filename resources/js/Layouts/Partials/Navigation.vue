@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {Link} from "@inertiajs/vue3";
 import {route} from 'ziggy-js';
-import {ChatBubbleOvalLeftIcon} from "@heroicons/vue/24/solid/index";
+import {ChatBubbleOvalLeftIcon} from "@heroicons/vue/24/solid";
 import ThemeSwitcher from "@/Components/ThemeSwitcher.vue";
 </script>
 

@@ -4,8 +4,7 @@ import TextInput from '@/Components/TextInput.vue';
 import Typography from '@/Components/UI/data-display/Typography.vue';
 import ChatLayout from '@/Layouts/ChatLayout.vue';
 import ConversationsList from '@/Pages/Chats/Partials/ConversationsList.vue';
-import {ChatBubbleOvalLeftIcon} from "@heroicons/vue/24/solid";
-import {MagnifyingGlassIcon} from '@heroicons/vue/24/solid/index.js';
+import {ChatBubbleOvalLeftIcon, MagnifyingGlassIcon} from "@heroicons/vue/24/solid";
 import {router} from '@inertiajs/vue3';
 
 const props = defineProps({

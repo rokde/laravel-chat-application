@@ -1,10 +1,10 @@
 <script setup>
 import InputError from '@/Components/InputError.vue';
 import CenteredCardLayout from '@/Layouts/CenteredCardLayout.vue';
-import {Button} from '@/shadcn/ui/button/index.js';
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/shadcn/ui/card/index.js';
-import {Input} from '@/shadcn/ui/input/index.js';
-import {Label} from '@/shadcn/ui/label/index.js';
+import {Button} from '@/shadcn/ui/button';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/shadcn/ui/card';
+import {Input} from '@/shadcn/ui/input';
+import {Label} from '@/shadcn/ui/label';
 import {useForm} from '@inertiajs/vue3';
 import {ref} from 'vue';
 

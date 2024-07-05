@@ -4,7 +4,7 @@ import CollaborationLayer from '@/Layers/CollaborationLayer.vue';
 import MobileNavigation from '@/Layouts/Partials/MobileNavigation.vue';
 import Navigation from '@/Layouts/Partials/Navigation.vue';
 import {Sheet, SheetContent, SheetTrigger} from '@/shadcn/ui/sheet';
-import {Bars3Icon} from "@heroicons/vue/24/solid/index";
+import {Bars3Icon} from "@heroicons/vue/24/solid";
 import {Button} from '@/shadcn/ui/button'
 import {Head, router} from '@inertiajs/vue3';
 import {route} from 'ziggy-js';

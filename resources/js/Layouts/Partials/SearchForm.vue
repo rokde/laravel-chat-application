@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {Input} from '@/shadcn/ui/input/index.js';
-import {MagnifyingGlassIcon} from "@heroicons/vue/24/outline/index";
+import {Input} from '@/shadcn/ui/input';
+import {MagnifyingGlassIcon} from "@heroicons/vue/24/outline";
 import {useKeyupEvent} from "@/lib/composables";
 
 defineEmits(['search']);

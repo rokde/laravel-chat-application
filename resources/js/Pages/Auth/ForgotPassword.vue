@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import InputError from '@/Components/InputError.vue';
 import CenteredCardLayout from '@/Layouts/CenteredCardLayout.vue';
-import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/shadcn/ui/card/index.js';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/shadcn/ui/card';
 import {useForm} from '@inertiajs/vue3';
 import {route} from 'ziggy-js';
 import {Label} from "@/shadcn/ui/label";

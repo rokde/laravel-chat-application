@@ -3,7 +3,7 @@ import Avatar from '@/Components/Avatar.vue';
 import TextInput from '@/Components/TextInput.vue';
 import ChatLayout from '@/Layouts/ChatLayout.vue';
 import {usersOnline} from '@/Stores/users-online.js';
-import {MagnifyingGlassIcon, UserPlusIcon} from '@heroicons/vue/24/solid/index.js';
+import {MagnifyingGlassIcon, UserPlusIcon} from '@heroicons/vue/24/solid';
 import {Link} from '@inertiajs/vue3';
 
 const props = defineProps({
