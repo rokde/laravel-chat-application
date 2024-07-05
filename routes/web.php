@@ -66,7 +66,7 @@ Route::middleware([
         \App\Events\MessageSent::dispatch($message);
         $message->recipients()
             ->each(
-                fn(ChatParticipant $participant) => $participant->user->notify(new MessageSentNotification($message))
+                fn (ChatParticipant $participant) => $participant->user->notify(new MessageSentNotification($message))
             );
 
         return back();

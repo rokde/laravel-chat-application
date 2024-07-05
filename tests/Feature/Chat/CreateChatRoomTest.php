@@ -48,7 +48,7 @@ class CreateChatRoomTest extends TestCase
 
         $chat = (new CreateChatRoom())->execute($user, collect([$user2]));
 
-        $this->assertEquals($user->name . ', ' . $user2->name, $chat->name);
+        $this->assertEquals($user->name.', '.$user2->name, $chat->name);
 
         $this->assertCount(2, $chat->participants);
         $this->assertEquals($user->id, $chat->participants->first()->id);

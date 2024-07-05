@@ -13,8 +13,6 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
- * 
- *
  * @property int $id
  * @property string $name
  * @property string $email
@@ -43,6 +41,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read int|null $tokens_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $unacceptedFriends
  * @property-read int|null $unaccepted_friends_count
+ *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
@@ -60,6 +59,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereTwoFactorRecoveryCodes($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereTwoFactorSecret($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -123,6 +123,7 @@ class User extends Authenticatable
 
     /**
      * Friendships I started, but were not accepted already
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany|User[]
      */
     public function unacceptedFriends(): BelongsToMany
@@ -133,6 +134,7 @@ class User extends Authenticatable
 
     /**
      * Friendship that I was invited to
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany|User[]
      */
     public function friendOf(): BelongsToMany
@@ -143,6 +145,7 @@ class User extends Authenticatable
 
     /**
      * Friendship that I was invited to, but do not have accepted already
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany|User[]
      */
     public function openFriendRequests(): BelongsToMany

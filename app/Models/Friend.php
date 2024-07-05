@@ -6,14 +6,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
- *
  * @property int $id
  * @property int $user_id
  * @property int $friend_id
  * @property int $accepted
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static Builder|Friend accepted()
  * @method static Builder|Friend forFriend(int $friendId)
  * @method static Builder|Friend forUser(int $userId)
@@ -27,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Friend whereId($value)
  * @method static Builder|Friend whereUpdatedAt($value)
  * @method static Builder|Friend whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Friend extends Model

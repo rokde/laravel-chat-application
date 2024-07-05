@@ -17,9 +17,7 @@ class MessageSent implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(public readonly ChatMessage $message)
-    {
-    }
+    public function __construct(public readonly ChatMessage $message) {}
 
     /**
      * Get the channels the event should broadcast on.
@@ -29,7 +27,7 @@ class MessageSent implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return $this->message->recipients()
-            ->map(fn(ChatParticipant $participant) => new PrivateChannel("App.Models.User.{$participant->user_id}"))
+            ->map(fn (ChatParticipant $participant) => new PrivateChannel("App.Models.User.{$participant->user_id}"))
             ->all();
     }
 }

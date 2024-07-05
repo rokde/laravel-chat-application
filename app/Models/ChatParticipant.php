@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
- *
  * @property int $id
  * @property int $chat_id
  * @property int $user_id
@@ -17,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Chat $chat
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant query()
@@ -26,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class ChatParticipant extends Model

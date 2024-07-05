@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- *
- *
  * @property int $id
  * @property int $chat_id
  * @property int $user_id
@@ -18,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Chat $chat
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|ChatMessage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ChatMessage newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ChatMessage query()
@@ -27,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|ChatMessage whereMessage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChatMessage whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChatMessage whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class ChatMessage extends Model
@@ -54,6 +54,6 @@ class ChatMessage extends Model
     {
         return $this->chat
             ->participants
-            ->filter(fn(ChatParticipant $participant) => $participant->user_id !== $this->user_id);
+            ->filter(fn (ChatParticipant $participant) => $participant->user_id !== $this->user_id);
     }
 }
