@@ -7,7 +7,7 @@ defineEmits<{
     (e: 'search', text: string): void
 }>();
 
-useKeyupEvent(event => {
+useKeyupEvent((event: KeyboardEvent) => {
     console.log('keyup', event);
 })
 </script>
