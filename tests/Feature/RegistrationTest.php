@@ -48,6 +48,6 @@ class RegistrationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(config('fortify.home'));
+        $response->assertRedirect(route('dashboard', absolute: false));
     }
 }
