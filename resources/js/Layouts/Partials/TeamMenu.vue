@@ -31,10 +31,10 @@ const switchToTeam = (team: any) => {
             <DropdownMenuLabel>Manage Team</DropdownMenuLabel>
             <DropdownMenuSeparator/>
             <DropdownMenuItem>
-                <Link :href="route('teams.show', user.current_team)">Team Settings</Link>
+                <Link :href="route('teams.show', user.current_team)" class="w-full">Team Settings</Link>
             </DropdownMenuItem>
             <DropdownMenuItem v-if="$page.props.jetstream.canCreateTeams">
-                <Link :href="route('teams.create')">Create New Team</Link>
+                <Link :href="route('teams.create')" class="w-full">Create New Team</Link>
             </DropdownMenuItem>
             <!-- Team Switcher -->
             <template v-if="user?.all_teams?.length > 1">
@@ -43,8 +43,8 @@ const switchToTeam = (team: any) => {
                 <template v-for="team in $page.props.auth.user.all_teams"
                           :key="team.id">
                     <DropdownMenuItem>
-                        <form @submit.prevent="switchToTeam(team)">
-                            <button type="submit" class="flex items-center">
+                        <form @submit.prevent="switchToTeam(team)" class="w-full">
+                            <button type="submit" class="w-full text-left flex items-center">
                                 <svg
                                     v-if="team.id == $page.props.auth.user.current_team_id"
                                     class="me-2 h-5 w-5 text-green-400"

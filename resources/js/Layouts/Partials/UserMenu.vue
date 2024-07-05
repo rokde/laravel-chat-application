@@ -29,17 +29,17 @@ const logout = () => {
             <DropdownMenuLabel>Manage Account</DropdownMenuLabel>
             <DropdownMenuSeparator/>
             <DropdownMenuItem>
-                <Link :href="route('profile.show')">
+                <Link :href="route('profile.show')" class="w-full">
                     Profile
                 </Link>
             </DropdownMenuItem>
             <DropdownMenuItem v-if="$page.props.jetstream.hasApiFeatures">
-                <Link :href="route('api-tokens.index')">API Tokens</Link>
+                <Link :href="route('api-tokens.index')" class="w-full">API Tokens</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator/>
             <DropdownMenuItem>
-                <form @submit.prevent="logout">
-                    <button type="submit">Logout</button>
+                <form @submit.prevent="logout" class="w-full">
+                    <button type="submit" class="w-full text-left">Logout</button>
                 </form>
             </DropdownMenuItem>
         </DropdownMenuContent>
