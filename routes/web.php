@@ -10,7 +10,9 @@ use App\Notifications\MessageSentNotification;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Laravel\Jetstream\Jetstream;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -87,3 +89,11 @@ Route::middleware([
         ]);
     })->name('contacts.show');
 });
+
+Route::get('/imprint', function () {
+    $imprintFile = Jetstream::localizedMarkdownPath('imprint.md');
+
+    return Inertia::render('Imprint', [
+        'imprint' => Str::markdown(file_get_contents($imprintFile)),
+    ]);
+})->name('imprint.show');
