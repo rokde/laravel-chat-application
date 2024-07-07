@@ -1,6 +1,6 @@
 <script setup>
 import Avatar from '@/Components/Avatar.vue';
-import ChatterLine from '@/Components/ChatterLine.vue';
+import ChatterLine from '@/Pages/Chats/Partials/ChatterLine.vue';
 import MessageInput from '@/Pages/Chats/Partials/MessageInput.vue';
 import {ScrollArea} from '@/shadcn/ui/scroll-area';
 import {chatMessages} from '@/Stores/chat-messages';
