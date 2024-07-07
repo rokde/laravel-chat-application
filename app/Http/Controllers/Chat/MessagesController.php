@@ -26,7 +26,8 @@ class MessagesController extends Controller
         //  only allow participants to access this chat
         abort_unless(in_array($request->user()->id, $chat->participants->pluck('user_id')->toArray()), 404);
 
-        $message = $createChatMessage->execute($chat, $request->user(), $request->get('message'));
+        $message = $createChatMessage->execute($chat, $request->user(), $request->get('message', ''),
+            $request->file('attachments', []));
 
         MessageSent::dispatch($message);
         $message->recipients()

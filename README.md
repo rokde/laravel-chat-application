@@ -75,3 +75,5 @@ npx shadcn-vue@latest add
 
 - [Day.js](https://day.js.org/docs/en/installation/installation) for displaying dates in the ui
 - [shadcn-vue](https://www.shadcn-vue.com/docs/introduction.html) for ui components
+- [Vue3 Emoji Picker](https://github.com/delowardev/vue3-emoji-picker)
+- [Headless UI Popover](https://headlessui.com/v1/vue/popover)

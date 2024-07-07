@@ -39,6 +39,8 @@ class ChatMessageAttachment extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function message(): BelongsTo
     {
         return $this->belongsTo(ChatMessage::class);

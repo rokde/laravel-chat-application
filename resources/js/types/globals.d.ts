@@ -33,3 +33,5 @@ declare module '@inertiajs/core' {
 declare module '@inertiajs/vue3' {
     export function usePage<T>(): Page<T>
 }
+
+declare module 'vue3-emoji-picker'
