@@ -62,10 +62,9 @@ useWindowHeight((height) => {
                     'hidden': !props.chat,
                     'col-span-12': props.chat,
                  }">
-                <div class="flex flex-col h-full bg-white" :style="{height: `${contentHeight}px`}">
+                <div class="flex flex-col h-full bg-white col-span-12" :style="{height: `${contentHeight}px`}">
                     <ChatWindow v-if="chat"
-                                :chat="chat"
-                                class="col-span-12"/>
+                                :chat="chat"/>
                     <template v-else>
                         <div class="h-full flex flex-col justify-center items-center">
                             <div
