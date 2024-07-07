@@ -37,7 +37,6 @@ defineEmits(['selected']);
             <template v-if="isDirectConversation">
                 <Avatar :name="conversationPartner.name" class="shrink-0"
                         :status="usersOnline.isOnline(conversationPartner.user_id) ? 'online' : 'offline'"/>
-                {{ conversationPartner.user_id }}
             </template>
             <template v-else>
                 <Avatar :name="multipleConversationPartner" class="shrink-0"/>
@@ -48,11 +47,11 @@ defineEmits(['selected']);
                           class="font-bold">{{ conversationPartner.name }}</span>
                     <span v-else
                           class="font-bold">{{ props.chat.name }}</span>
-                    <span v-if="props.chat.latestMessage?.timestamp">
-                        {{ humanReadableTimeDiff(props.chat.latestMessage?.timestamp) }}
+                    <span v-if="props.chat.lastMessage?.timestamp">
+                        {{ humanReadableTimeDiff(props.chat.lastMessage?.timestamp) }}
                     </span>
                 </div>
-                <Typography variant="body-5">{{ props.chat.latestMessage?.message }}</Typography>
+                <Typography variant="body-5">{{ props.chat.lastMessage?.message }}</Typography>
             </div>
         </button>
     </div>

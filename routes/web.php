@@ -1,12 +1,9 @@
 <?php
 
-use App\Actions\Chat\CreateChatMessage;
 use App\Actions\Chat\CreateChatRoom;
+use App\Http\Controllers\Chat\MessagesController;
 use App\Http\Resources\ChatResource;
 use App\Http\Resources\NameBasedResource;
-use App\Models\Chat;
-use App\Models\ChatParticipant;
-use App\Notifications\MessageSentNotification;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,11 +30,13 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/chats', function (Request $request) {
+        /** @var \App\Models\User $user */
         $user = $request->user();
-        $user->loadMissing('chats.lastMessage.user', 'chats.participants');
+        $user->loadMissing('friends', 'chats.lastMessage.user', 'chats.participants');
 
         return Inertia::render('Chats', [
             'chats' => ChatResource::collection($user->chats),
+            'friends' => NameBasedResource::collection($user->friends),
         ]);
     })->name('chats.index');
 
@@ -51,33 +50,9 @@ Route::middleware([
         return redirect()->route('chats.show', [$chat]);
     })->name('chats.store');
 
-    Route::get('/chats/{chat}', function (Request $request, Chat $chat) {
-        $chat->loadMissing('participants', 'messages');
+    Route::get('/chats/{chat}', [MessagesController::class, 'show'])->name('chats.show');
 
-        //  only allow participants to access this chat
-        abort_unless(in_array($request->user()->id, $chat->participants->pluck('user_id')->toArray()), 404);
-
-        $user = $request->user();
-        $user->loadMissing('chats.lastMessage.user', 'chats.participants');
-        $chat->participants->each(fn(ChatParticipant $participant) => $participant->setRelation('chat', $chat));
-
-        return Inertia::render('Chats', [
-            'chat' => new ChatResource($chat),
-            'chats' => ChatResource::collection($user->chats),
-        ]);
-    })->name('chats.show');
-
-    Route::post('/chats/{chat}', function (Request $request, Chat $chat, CreateChatMessage $createChatMessage) {
-        $message = $createChatMessage->execute($chat, $request->user(), $request->get('message'));
-
-        \App\Events\MessageSent::dispatch($message);
-        $message->recipients()
-            ->each(
-                fn(ChatParticipant $participant) => $participant->user->notify(new MessageSentNotification($message))
-            );
-
-        return back();
-    })->name('chats.messages.store');
+    Route::post('/chats/{chat}', [MessagesController::class, 'store'])->name('chats.messages.store');
 
     Route::get('/contacts', function (Request $request) {
 

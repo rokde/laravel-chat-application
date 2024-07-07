@@ -34,23 +34,23 @@ export function useTypingEvent(channelId: string, user: {
     name: string
 }, friendsTyping: Ref<{ id: number; name: string }[]>, timeout: number = 5000): () => void {
     const eventName = 'typing';
-    const channel = window.Echo.private(channelId);
     const friendsTypingTimer: Ref<{ [id: number]: any }> = ref<{ [id: number]: any }>({});
 
     onMounted(() => {
-        channel.listenForWhisper(eventName, (event: { id: number; name: string }) => {
-            if (!friendsTyping.value.some(friend => friend.id === event.id)) {
-                friendsTyping.value.push(event);
-            }
+        window.Echo.private(channelId)
+            .listenForWhisper(eventName, (event: { id: number; name: string }) => {
+                if (!friendsTyping.value.some(friend => friend.id === event.id)) {
+                    friendsTyping.value.push(event);
+                }
 
-            if (friendsTypingTimer.value.hasOwnProperty(event.id)) {
-                clearTimeout(friendsTypingTimer.value[event.id]);
-            }
+                if (friendsTypingTimer.value.hasOwnProperty(event.id)) {
+                    clearTimeout(friendsTypingTimer.value[event.id]);
+                }
 
-            friendsTypingTimer.value[event.id] = setTimeout(() => {
-                friendsTyping.value = friendsTyping.value.filter((friend) => friend.id !== event.id);
-            }, timeout);
-        })
+                friendsTypingTimer.value[event.id] = setTimeout(() => {
+                    friendsTyping.value = friendsTyping.value.filter((friend) => friend.id !== event.id);
+                }, timeout);
+            })
             .error((error: Error): void => {
                 console.error('error on typing', error);
             });
@@ -60,10 +60,8 @@ export function useTypingEvent(channelId: string, user: {
     });
 
     return (): void => {
-        if (!channel) {
-            return;
-        }
         // @ts-ignore
-        channel.whisper(eventName, user);
+        window.Echo.private(channelId)
+            .whisper(eventName, user);
     }
 }

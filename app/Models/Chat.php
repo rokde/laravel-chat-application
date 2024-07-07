@@ -44,8 +44,7 @@ class Chat extends Model
 
     public function messages(): HasMany
     {
-        return $this->hasMany(ChatMessage::class)
-            ->orderBy('id');
+        return $this->hasMany(ChatMessage::class);
     }
 
     public function lastMessage(): BelongsTo

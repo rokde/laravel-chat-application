@@ -23,7 +23,8 @@ const logout = () => {
     <DropdownMenu>
         <DropdownMenuTrigger as-child>
             <Avatar :name="user?.name"
-                    :image-url="$page.props.jetstream.managesProfilePhotos ? user?.profile_photo_url : null"/>
+                    :image-url="$page.props.jetstream.managesProfilePhotos ? user?.profile_photo_url : null"
+                    class="cursor-pointer"/>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
             <DropdownMenuLabel>Manage Account</DropdownMenuLabel>

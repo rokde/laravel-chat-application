@@ -20,9 +20,10 @@ class ChatResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'name' => $this->resource->name,
-            'participant_count' => $this->whenLoaded('participants', fn () => $this->resource->participants->count()),
+            'participant_count' => $this->whenLoaded('participants', fn() => $this->resource->participants->count()),
             'participants' => ChatParticipantResource::collection($this->whenLoaded('participants')),
-            'messages' => ChatMessageResource::collection($this->whenLoaded('messages')),
+            'messages' => $this->whenLoaded('messages',
+                fn() => ChatMessageResource::collection($this->resource->messages->reverse())),
             'lastMessage' => new ChatMessageResource($this->whenLoaded('lastMessage')),
         ];
     }

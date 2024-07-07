@@ -22,6 +22,7 @@ class ChatMessageResource extends JsonResource
             'user_id' => $this->resource->user_id,
             'user' => new UserResource($this->whenLoaded('user')),
             'message' => $this->resource->message,
+            'attachments' => ChatMessageAttachmentResource::collection($this->resource->attachments),
             'timestamp' => $this->resource->created_at,
         ];
     }

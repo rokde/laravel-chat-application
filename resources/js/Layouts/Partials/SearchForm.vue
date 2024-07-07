@@ -8,7 +8,7 @@ defineEmits<{
 }>();
 
 useKeyupEvent((event: KeyboardEvent) => {
-    console.log('keyup', event);
+    // console.log('keyup', event);
 })
 </script>
 

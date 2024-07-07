@@ -25,7 +25,7 @@ const switchToTeam = (team: any) => {
 <template>
     <DropdownMenu>
         <DropdownMenuTrigger as-child>
-            <div>{{ user?.current_team?.name ?? user?.name }}</div>
+            <div class="cursor-pointer">{{ user?.current_team?.name ?? user?.name }}</div>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
             <DropdownMenuLabel>Manage Team</DropdownMenuLabel>

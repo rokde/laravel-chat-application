@@ -46,7 +46,7 @@ defineEmits<{
                 <Navigation/>
             </aside>
 
-            <div class="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+            <div class="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 min-h-screen">
                 <header
                     class="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
                     <!-- mobile: hamburger menu -->
@@ -73,18 +73,8 @@ defineEmits<{
                     <UserMenu/>
                 </header>
                 <!-- Page Content -->
-                <main class="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+                <main ref="main" class="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
                     <slot/>
-
-                    <div v-if="$slots.header" class="bg-red-500 shadow">
-                        Diese Seite verwendet noch den alten Slot "header"!
-
-                        <header v-if="$slots.header" class="bg-white dark:bg-gray-800 shadow">
-                            <div class="mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                                <slot name="header"/>
-                            </div>
-                        </header>
-                    </div>
                 </main>
             </div>
         </div>

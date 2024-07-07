@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import {Link} from "@inertiajs/vue3";
-import {route} from "ziggy-js";
-import {ChatBubbleOvalLeftIcon} from "@heroicons/vue/24/solid";
+import {navigation} from "@/Stores/navigation";
+import {computed} from "vue";
+
+const navigationItems = computed(() => {
+    return navigation;
+})
 </script>
 
 <template>
@@ -22,12 +26,18 @@ import {ChatBubbleOvalLeftIcon} from "@heroicons/vue/24/solid";
         </Link>
 
         <Link
-            title="Conversations"
-            :href="route('chats.index')"
+            v-for="item of navigationItems"
+            :key="item.title"
+            :title="item.title"
+            :href="item.url"
             class="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
         >
-            <ChatBubbleOvalLeftIcon class="h-5 w-5"/>
-            Conversations
+            <component :is="item.icon"
+                       class="h-5 w-5"
+                       :class="{
+                        'text-primary': item.active()
+                    }"/>
+            {{ item.title }}
         </Link>
     </nav>
 </template>

@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import {Link} from "@inertiajs/vue3";
 import {route} from 'ziggy-js';
-import {ChatBubbleOvalLeftIcon} from "@heroicons/vue/24/solid";
 import ThemeSwitcher from "@/Components/ThemeSwitcher.vue";
+import {computed} from "vue";
+import {navigation} from "@/Stores/navigation";
+
+const navigationItems = computed(() => {
+    return navigation;
+})
 </script>
 
 <template>
@@ -23,12 +28,18 @@ import ThemeSwitcher from "@/Components/ThemeSwitcher.vue";
         </Link>
 
         <Link
-            title="Conversations"
-            :href="route('chats.index')"
+            v-for="item of navigationItems"
+            :key="item.title"
+            :title="item.title"
+            :href="item.url"
             class="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
         >
-            <ChatBubbleOvalLeftIcon class="h-5 w-5"/>
-            <span class="sr-only">Dashboard</span>
+            <component :is="item.icon"
+                       class="h-5 w-5"
+                       :class="{
+                        'text-primary': item.active()
+                    }"/>
+            <span class="sr-only">{{ item.title }}</span>
         </Link>
     </nav>
     <nav class="mt-auto flex flex-col items-center gap-4 px-2 py-4">
