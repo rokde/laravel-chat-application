@@ -34,7 +34,7 @@ Route::middleware([
 
     Route::get('/chats', function (Request $request) {
         $user = $request->user();
-        $user->loadMissing('chats.latestMessage.user', 'chats.participants');
+        $user->loadMissing('chats.lastMessage.user', 'chats.participants');
 
         return Inertia::render('Chats', [
             'chats' => ChatResource::collection($user->chats),
@@ -53,7 +53,7 @@ Route::middleware([
 
     Route::get('/chats/{chat}', function (Request $request, Chat $chat) {
         $user = $request->user();
-        $user->loadMissing('chats.latestMessage.user', 'chats.participants');
+        $user->loadMissing('chats.lastMessage.user', 'chats.participants');
         $chat->loadMissing('participants', 'messages');
 
         return Inertia::render('Chats', [
@@ -68,7 +68,7 @@ Route::middleware([
         \App\Events\MessageSent::dispatch($message);
         $message->recipients()
             ->each(
-                fn (ChatParticipant $participant) => $participant->user->notify(new MessageSentNotification($message))
+                fn(ChatParticipant $participant) => $participant->user->notify(new MessageSentNotification($message))
             );
 
         return back();

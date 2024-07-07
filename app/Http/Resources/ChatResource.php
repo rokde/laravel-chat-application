@@ -23,7 +23,7 @@ class ChatResource extends JsonResource
             'participant_count' => $this->whenLoaded('participants', fn () => $this->resource->participants->count()),
             'participants' => ChatParticipantResource::collection($this->whenLoaded('participants')),
             'messages' => ChatMessageResource::collection($this->whenLoaded('messages')),
-            'latestMessage' => new ChatMessageResource($this->whenLoaded('latestMessage')),
+            'lastMessage' => new ChatMessageResource($this->whenLoaded('lastMessage')),
         ];
     }
 }

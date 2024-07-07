@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -14,6 +15,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $message
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Collection<int, \App\Models\ChatMessageAttachment> $attachments
+ * @property-read int|null $attachments_count
  * @property-read \App\Models\Chat $chat
  * @property-read \App\Models\User $user
  *
@@ -35,8 +38,6 @@ class ChatMessage extends Model
 
     protected $guarded = [];
 
-    protected $touches = ['chat'];
-
     public function chat(): BelongsTo
     {
         return $this->belongsTo(Chat::class);
@@ -45,6 +46,11 @@ class ChatMessage extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function attachments(): HasMany
+    {
+        return $this->hasMany(ChatMessageAttachment::class);
     }
 
     /**

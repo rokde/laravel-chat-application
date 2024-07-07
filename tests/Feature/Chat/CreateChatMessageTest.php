@@ -22,5 +22,6 @@ class CreateChatMessageTest extends TestCase
         $message = (new CreateChatMessage())->execute($chat, $user, 'Hello');
 
         $this->assertEquals('Hello', $message->message);
+        $this->assertEquals($message->id, $chat->last_chat_message_id);
     }
 }
