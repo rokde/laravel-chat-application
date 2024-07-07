@@ -52,9 +52,13 @@ Route::middleware([
     })->name('chats.store');
 
     Route::get('/chats/{chat}', function (Request $request, Chat $chat) {
+        $chat->loadMissing('participants', 'messages');
+
+        //  only allow participants to access this chat
+        abort_unless(in_array($request->user()->id, $chat->participants->pluck('user_id')->toArray()), 404);
+
         $user = $request->user();
         $user->loadMissing('chats.lastMessage.user', 'chats.participants');
-        $chat->loadMissing('participants', 'messages');
         $chat->participants->each(fn(ChatParticipant $participant) => $participant->setRelation('chat', $chat));
 
         return Inertia::render('Chats', [
