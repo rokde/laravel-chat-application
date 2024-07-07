@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Chat::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(User::class)->constrained()->nullOnDelete();
-            $table->string('displayName')->nullable()->default(null);
+            $table->string('display_name')->nullable()->default(null);
             $table->timestamps();
         });
     }

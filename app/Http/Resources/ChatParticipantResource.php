@@ -21,6 +21,7 @@ class ChatParticipantResource extends JsonResource
             'id' => $this->resource->id,
             'user_id' => $this->resource->user_id,
             'name' => $this->resource->displayName,
+            'name' => $this->resource->display_name,
         ];
     }
 }

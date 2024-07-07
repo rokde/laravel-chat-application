@@ -26,7 +26,7 @@ class CreateChatRoom
             ]), function (Chat $chat) use ($participants) {
                 $participants->unique('id')->each(fn (User|array $participant) => $chat->participants()->create([
                     'user_id' => data_get($participant, 'id'),
-                    'displayName' => data_get($participant, 'name'),
+                    'display_name' => data_get($participant, 'name'),
                 ]));
             });
         });
