@@ -3,6 +3,7 @@ import ChatterLine from '@/Components/ChatterLine.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
+import {useTypingEvent} from '@/lib/composables';
 import {PaperAirplaneIcon} from '@heroicons/vue/24/solid';
 import {useForm, usePage} from '@inertiajs/vue3';
 import {onMounted, onUnmounted, ref} from 'vue';
@@ -35,6 +36,7 @@ const send = () => {
 }
 
 const page = usePage();
+// const friendsTyping: Ref<{ id: number; name: string }[]> = ref<{ id: number; name: string }[]>([]);
 const friendsTyping = ref([]);
 const friendsTypingTimer = ref({});
 
@@ -47,38 +49,16 @@ onMounted(() => {
         .error((error) => {
             console.error('error message sent', error);
         });
-
-    Echo.private(`chat.${props.chat.id}`)
-        .listenForWhisper('typing', (event) => {
-            if (!friendsTyping.value.some(friend => friend.id === event.id)) {
-                friendsTyping.value.push(event);
-            }
-
-            if (friendsTypingTimer.value.hasOwnProperty(event.id)) {
-                clearTimeout(friendsTypingTimer.value[event.id]);
-            }
-
-            friendsTypingTimer[event.id] = setTimeout(() => {
-                friendsTyping.value = friendsTyping.value.filter((friend) => friend.id !== event.id);
-            }, 10000);
-        })
-        .error((error) => {
-            console.error('error on typing', error);
-        });
 });
 
 onUnmounted(() => {
     Echo.leave(`App.Models.User.${page.props.auth.user.id}`);
-    Echo.leave(`chat.${props.chat.id}`);
 });
 
-const sendTypingEvent = () => {
-    Echo.private(`chat.${props.chat.id}`)
-        .whisper('typing', {
-            id: page.props.auth.user.id,
-            name: page.props.auth.user.name,
-        });
-}
+const sendTypingEvent = useTypingEvent(`chat.${props.chat.id}`, {
+    id: page.props.auth.user.id,
+    name: page.props.auth.user.name,
+}, friendsTyping);
 </script>
 
 <template>
