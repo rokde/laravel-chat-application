@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $display_name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $last_seen_chat_message_id
  * @property-read \App\Models\Chat $chat
  * @property-read \App\Models\User $user
  *
@@ -23,6 +24,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant whereDisplayName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant whereLastSeenChatMessageId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ChatParticipant whereUserId($value)
  *

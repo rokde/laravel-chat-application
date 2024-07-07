@@ -55,6 +55,7 @@ Route::middleware([
         $user = $request->user();
         $user->loadMissing('chats.lastMessage.user', 'chats.participants');
         $chat->loadMissing('participants', 'messages');
+        $chat->participants->each(fn(ChatParticipant $participant) => $participant->setRelation('chat', $chat));
 
         return Inertia::render('Chats', [
             'chat' => new ChatResource($chat),
