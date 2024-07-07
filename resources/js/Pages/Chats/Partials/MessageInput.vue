@@ -10,6 +10,7 @@ import EmojiPicker from 'vue3-emoji-picker';
 import {Popover, PopoverButton, PopoverPanel} from "@headlessui/vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import 'vue3-emoji-picker/css';
+import AudioRecorder from "@/Pages/Chats/Partials/AudioRecorder.vue";
 
 const props = defineProps<{
     chatId: number;
@@ -81,6 +82,10 @@ const sendLike = () => {
         },
     });
 }
+
+const recordedAudioReady = (blob: File) => {
+    form.attachments.push(blob);
+}
 </script>
 
 <template>
@@ -90,7 +95,7 @@ const sendLike = () => {
             {{ friendsTyping.map(friend => friend.name).join(', ') }} is typing...
         </span>
     </span>
-    <form class="flex flex-wrap items-start border-t border-slate-200 py-3" @submit.prevent="send">
+    <form class="flex flex-wrap items-start border-t border-slate-200 py-3 space-x-2" @submit.prevent="send">
         <div class="order-2 flex-1 sm:flex-none sm:order-1 p-2 space-x-2">
             <button type="button" class="text-gray-400 hover:text-gray-300 relative">
                 <PaperClipIcon class="w-6"/>
@@ -105,6 +110,7 @@ const sendLike = () => {
                        accept="image/*"
                        class="absolute left-0 top-0 right-0 bottom-0 z-20 opacity-0 cursor-pointer">
             </button>
+            <AudioRecorder @recorded="recordedAudioReady"/>
         </div>
 
         <div class="order-1 px-3 sm:p-0 min-w-[220px] basis-full sm:basis-0 sm:order-2 flex-1 relative">

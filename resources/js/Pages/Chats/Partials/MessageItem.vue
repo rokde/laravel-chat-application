@@ -1,32 +1,35 @@
-<script setup>
+<script setup lang="ts">
 import Avatar from '@/Components/Avatar.vue';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/de';
+import MessageAttachments from "@/Pages/Chats/Partials/MessageAttachments.vue";
 
-const props = defineProps({
-    message: {
-        type: String,
-        required: true,
-    },
-    timestamp: {
-        type: String,
-        required: true,
-    },
-    sender: {
-        type: Object,
-        required: true,
-    },
-    itsMe: {
-        type: Boolean,
-        default: false,
-    },
-    footer: {
-        type: String,
-        default: null,
-    },
-});
+interface MessageProps {
+    id: number;
+    user_id: number;
+    message: string;
+    timestamp?: string;
+    created_at?: string;
+    attachments: {
+        id: number;
+        chat_message_id: number;
+        mime: string;
+        type: string;
+        name: string;
+        size: number;
+        timestamp: string;
+        url: string;
+    }[];
+}
+
+const props = defineProps<{
+    message: MessageProps;
+    sender: {};
+    itsMe: boolean;
+    footer?: string;
+}>();
 
 dayjs.extend(relativeTime);
 dayjs.extend(localizedFormat);
@@ -53,8 +56,8 @@ dayjs.locale('de');
              }">
             {{ props.sender.name }}
             <time class="text-sm opacity-50"
-                  :title="dayjs(props.timestamp).format('L LT')">
-                {{ dayjs(props.timestamp).fromNow() }}
+                  :title="dayjs(props.message.timestamp ?? props.message.created_at).format('L LT')">
+                {{ dayjs(props.message.timestamp ?? props.message.created_at).fromNow() }}
             </time>
         </div>
         <div
@@ -63,7 +66,10 @@ dayjs.locale('de');
                 'col-start-2 rounded-es-none bg-primary-foreground text-secondary-foreground': !props.itsMe,
                 'col-start-1 rounded-ee-none bg-secondary-foreground text-primary-foreground': props.itsMe,
              }">
-            {{ props.message }}
+            {{ props.message.message }}
+
+            <MessageAttachments v-if="props.message.attachments.length"
+                                :attachments="props.message.attachments"/>
         </div>
         <div class="row-start-3 opacity-50 text-xs leading-6 italic"
              :class="{

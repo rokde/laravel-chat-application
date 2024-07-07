@@ -6,7 +6,6 @@ use App\Models\Chat;
 use App\Models\ChatMessage;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CreateChatMessage
@@ -34,13 +33,14 @@ class CreateChatMessage
                 }
 
                 $directory = Str::random(32);
-                Storage::makeDirectory($directory);
 
                 foreach ($attachments as $attachment) {
                     $message->attachments()->create([
                         'name' => $attachment->getClientOriginalName(),
                         'type' => 'external',
-                        'path' => $attachment->storePublicly($directory),
+                        'path' => $attachment->storePublicly($directory, [
+                            'disk' => 'public',
+                        ]),
                         'content' => null,
                         'mime' => $attachment->getClientMimeType(),
                         'size' => $attachment->getSize(),

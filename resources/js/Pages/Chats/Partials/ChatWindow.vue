@@ -1,7 +1,7 @@
 <script setup>
 import Avatar from '@/Components/Avatar.vue';
-import ChatterLine from '@/Pages/Chats/Partials/ChatterLine.vue';
 import MessageInput from '@/Pages/Chats/Partials/MessageInput.vue';
+import MessageItem from '@/Pages/Chats/Partials/MessageItem.vue';
 import {ScrollArea} from '@/shadcn/ui/scroll-area';
 import {chatMessages} from '@/Stores/chat-messages';
 import {ArrowUturnLeftIcon} from '@heroicons/vue/24/solid';
@@ -67,11 +67,9 @@ onUnmounted(() => {
         <div class="flex flex-col gap-2">
             <template v-for="message of chatMessages.messages[props.chat.id]"
                       :key="message.id">
-                <ChatterLine
-                    :timestamp="message.timestamp ?? message.created_at"
-                    :sender="participantByUserId(message.user_id)"
-                    :message="message.message"
-                    :its-me="message.user_id === page.props.auth.user.id"
+                <MessageItem :message="message"
+                             :sender="participantByUserId(message.user_id)"
+                             :its-me="message.user_id === page.props.auth.user.id"
                 />
             </template>
             <div ref="messageBottom" class="w-0 h-0"></div>
