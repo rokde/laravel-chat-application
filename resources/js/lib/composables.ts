@@ -60,6 +60,9 @@ export function useTypingEvent(channelId: string, user: {
     });
 
     return (): void => {
+        if (!channel) {
+            return;
+        }
         // @ts-ignore
         channel.whisper(eventName, user);
     }
