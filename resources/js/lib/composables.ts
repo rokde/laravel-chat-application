@@ -5,6 +5,19 @@ export function useKeyupEvent(handler: any): void {
     onUnmounted(() => document.removeEventListener("keyup", handler));
 }
 
+export function useWindowHeight(handler: (height: Ref<number>) => void): void {
+    const height: Ref<number> = ref<number>(0);
+    const eventHandler = (): void => {
+        height.value = window.innerHeight;
+        handler(height);
+    }
+
+    onMounted(() => {
+        window.addEventListener("resize", eventHandler)
+        eventHandler();
+    });
+    onUnmounted(() => window.removeEventListener("resize", eventHandler));
+}
 
 /**
  * whispering typing event on a private channel

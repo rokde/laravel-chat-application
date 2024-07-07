@@ -4,6 +4,7 @@ import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import {useTypingEvent} from '@/lib/composables';
+import {ScrollArea} from '@/shadcn/ui/scroll-area';
 import {PaperAirplaneIcon} from '@heroicons/vue/24/solid';
 import {useForm, usePage} from '@inertiajs/vue3';
 import {onMounted, onUnmounted, ref} from 'vue';
@@ -38,9 +39,11 @@ const send = () => {
 const page = usePage();
 // const friendsTyping: Ref<{ id: number; name: string }[]> = ref<{ id: number; name: string }[]>([]);
 const friendsTyping = ref([]);
-const friendsTypingTimer = ref({});
+const messageBottom = ref(null);
 
 onMounted(() => {
+    messageBottom.value.scrollIntoView();
+
     messageInput.value.focus();
     Echo.private(`App.Models.User.${page.props.auth.user.id}`)
         .listen('MessageSent', (event) => {
@@ -70,6 +73,7 @@ const sendTypingEvent = useTypingEvent(`chat.${props.chat.id}`, {
                              :label="participantByUserId(message.user_id)?.name ?? 'Unknown'"/>
                 <span>{{ message.message }}</span>
             </template>
+            <div ref="messageBottom" class="w-0 h-0"></div>
         </div>
         <div class="w-full mt-8">
             <span class="block h-6 text-slate-700 italic">
