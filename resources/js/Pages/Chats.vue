@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ChatWindow from '@/Blocks/ChatWindow.vue';
+import ChatWindow from '@/Pages/Chats/Partials/ChatWindow.vue';
 import Typography from '@/Components/UI/data-display/Typography.vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import ConversationsList from '@/Pages/Chats/Partials/ConversationsList.vue';
@@ -9,7 +9,7 @@ import {route} from 'ziggy-js';
 import {computed, ref} from "vue";
 import {useWindowHeight} from "@/lib/composables";
 import {ScrollArea} from "@/shadcn/ui/scroll-area";
-import InviteFriendsToChatWindow from "@/Blocks/InviteFriendsToChatWindow.vue";
+import InviteFriendsToChatWindow from "@/Pages/Chats/Partials/InviteFriendsToChatWindow.vue";
 
 const props = withDefaults(defineProps<{
     chats: object[];
